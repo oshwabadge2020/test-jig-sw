@@ -4,11 +4,11 @@ class TestJig:
 	def __init__(self):
 		pass
 
-	def EraseDevice():
+	def EraseDevice(self):
 		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/mass-erase.ocd")
 		return True
 
-	def ProgramBootloader():
+	def ProgramBootloader(self):
 		# Execute command.
 
 		res = os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/flash-boot.ocd")
@@ -16,7 +16,7 @@ class TestJig:
 			return True
 		return False
 
-	def ProgramMicroPython():
+	def ProgramMicroPython(self):
 		pass
 
 	def GetVoltage(self,rail):
