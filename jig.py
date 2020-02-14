@@ -18,9 +18,20 @@ class TestJig:
 
 	def ProgramMicroPython(self):
 		# Do we have the bootloader partition mounted?
-		if os.system("cat /proc/mounts | grep BADGEBOOT") == 0:
+		if self.waitForDrive("BADGEBOOT"):
 			os.system("cp binaries/*.uf2 /media/pi/BADGEBOOT/ ")
-		pass
+
+	def waitForDrive(self,drive,timeout=15):
+		res=255
+		while (res!=0 or timeout<=0):
+			res = os.system("cat /proc/mounts | grep %s"%(drive))
+			time.sleep(1)
+			timeout -= 1
+		if (timeout<=0 or res !=0):
+			return false
+		return true
+
+
 
 	def GetVoltage(self,rail):
 		pass
