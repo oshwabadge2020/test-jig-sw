@@ -5,6 +5,10 @@ class TestJig:
 	def __init__(self):
 		pass
 
+	def ResetDevice(self):
+		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -c \"init\" -c \"reset run\" -c \"exit\"")
+		return True
+
 	def EraseDevice(self):
 		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/mass-erase.ocd")
 		return True
@@ -19,23 +23,35 @@ class TestJig:
 
 	def ProgramMicroPython(self):
 		# Do we have the bootloader partition mounted?
+		print("Waiting for BADGEBOOT...")
 		if self.waitForDrive("BADGEBOOT"):
 			time.sleep(5)
+			print("Copying over Micropython...")
 			os.system("cp binaries/*.uf2 /media/pi/BADGEBOOT/ ")
-
-		if self.waitForDrive("CIRCUITPY"):
+			print("Done!")
+		print("Waiting for CIRCUITPY")
+		if self.waitForDrive("CIRCUITPY",to=10):
 			return True
+		#Sometimes the copy doesn't take on the first try
+		os.system("cp binaries/*.uf2 /media/pi/BADGEBOOT/ ")
+		if self.waitForDrive("CIRCUITPY",to=40):
+                        return True
 		return False
 
-	def waitForDrive(self,drive,timeout=15):
+	def waitForDrive(self,drive,to=15):
+		timeout=to
 		res=255
-		while (res!=0 or timeout<=0):
+		while ( timeout>0):
 			res = os.system("cat /proc/mounts | grep %s"%(drive))
+			if res==0:
+				print("Drive found")
+				return True
 			time.sleep(1)
 			timeout -= 1
-		if (timeout<=0 or res !=0):
-			return False
-		return True
+			print(timeout)
+		
+		print("Timed out waiting for %s"%(drive))
+		return False
 
 	def LoadTestScript(self):
 		pass
