@@ -1,4 +1,5 @@
 import os
+import time
 
 class TestJig:
 	def __init__(self):
