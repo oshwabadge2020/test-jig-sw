@@ -20,6 +20,7 @@ class TestJig:
 	def ProgramMicroPython(self):
 		# Do we have the bootloader partition mounted?
 		if self.waitForDrive("BADGEBOOT"):
+			time.sleep(5)
 			os.system("cp binaries/*.uf2 /media/pi/BADGEBOOT/ ")
 
 		if self.waitForDrive("CIRCUITPY"):
@@ -36,7 +37,8 @@ class TestJig:
 			return False
 		return True
 
-
+	def LoadTestScript(self):
+		pass
 
 	def GetVoltage(self,rail):
 		pass
