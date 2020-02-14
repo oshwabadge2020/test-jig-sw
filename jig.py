@@ -29,8 +29,8 @@ class TestJig:
 			time.sleep(1)
 			timeout -= 1
 		if (timeout<=0 or res !=0):
-			return false
-		return true
+			return False
+		return True
 
 
 
