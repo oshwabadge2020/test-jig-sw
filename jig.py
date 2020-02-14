@@ -4,9 +4,13 @@ class TestJig:
 	def __init__(self):
 		pass
 
+	def EraseDevice():
+		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/mass-erase.ocd")
+		return
+
 	def ProgramBootloader():
 		# Execute command.
-		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/mass-erase.ocd")
+
 		res = os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/flash-boot.ocd")
 		if res = 0:
 			return True
