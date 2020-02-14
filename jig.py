@@ -22,6 +22,10 @@ class TestJig:
 		if self.waitForDrive("BADGEBOOT"):
 			os.system("cp binaries/*.uf2 /media/pi/BADGEBOOT/ ")
 
+		if self.waitForDrive("CIRCUITPY"):
+			return True
+		return False
+
 	def waitForDrive(self,drive,timeout=15):
 		res=255
 		while (res!=0 or timeout<=0):
