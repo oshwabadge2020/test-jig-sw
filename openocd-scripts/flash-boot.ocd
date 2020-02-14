@@ -1,0 +1,19 @@
+init
+reset halt
+
+sleep 100
+
+#nrf51 mass_erase
+
+reset
+
+sleep 3000
+
+program /home/pi/soft.hex verify
+
+sleep 3000
+
+program /home/pi/boot.hex verify
+
+reset
+exit

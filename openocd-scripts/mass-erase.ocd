@@ -1,0 +1,4 @@
+init
+reset halt
+nrf51 mass_erase
+exit
