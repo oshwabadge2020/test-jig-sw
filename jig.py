@@ -17,6 +17,9 @@ class TestJig:
 		return False
 
 	def ProgramMicroPython(self):
+		# Do we have the bootloader partition mounted?
+		if os.system("cat /proc/mounts | grep BADGEBOOT") == 0:
+			os.system("cp binaries/*.uf2 /media/pi/BADGEBOOT/ ")
 		pass
 
 	def GetVoltage(self,rail):
