@@ -6,13 +6,13 @@ class TestJig:
 
 	def EraseDevice():
 		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/mass-erase.ocd")
-		return
+		return True
 
 	def ProgramBootloader():
 		# Execute command.
 
 		res = os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/flash-boot.ocd")
-		if res = 0:
+		if res == 0:
 			return True
 		return False
 
