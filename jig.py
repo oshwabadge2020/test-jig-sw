@@ -27,13 +27,13 @@ class TestJig:
 		if self.waitForDrive("BADGEBOOT"):
 			time.sleep(5)
 			print("Copying over Micropython...")
-			os.system("cp binaries/*.uf2 /media/pi/BADGEBOOT/ ")
+			os.system("cp temp/*.uf2 /media/pi/BADGEBOOT/ ")
 			print("Done!")
 		print("Waiting for CIRCUITPY")
 		if self.waitForDrive("CIRCUITPY",to=10):
 			return True
 		#Sometimes the copy doesn't take on the first try
-		os.system("cp binaries/*.uf2 /media/pi/BADGEBOOT/ ")
+		os.system("cp temp/*.uf2 /media/pi/BADGEBOOT/ ")
 		if self.waitForDrive("CIRCUITPY",to=40):
                         return True
 		return False
