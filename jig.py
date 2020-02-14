@@ -1,9 +1,16 @@
+import os
+
 class TestJig:
 	def __init__(self):
 		pass
 
 	def ProgramBootloader():
-		pass
+		# Execute command.
+		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/mass-erase.ocd")
+		res = os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/flash-boot.ocd")
+		if res = 0:
+			return True
+		return False
 
 	def ProgramMicroPython():
 		pass
