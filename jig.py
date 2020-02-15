@@ -40,6 +40,12 @@ class TestJig:
 		print("Done!")
 		return True
 
+	def ProgramTestCode(self):
+		print("Copying over application files..")
+		os.system("cp temp/test/code.py `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
+		print("Done!")
+		return True
+
 	def waitForDrive(self,drive,to=15):
 		timeout=to
 		res=255

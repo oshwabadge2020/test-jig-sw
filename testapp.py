@@ -29,14 +29,12 @@ if not jig.ProgramMicroPython():
 		if not jig.ProgramMicroPython():
 			print("Failed to load CircuitPython a 3rd time, Badge Failed.")
 			exit(-2)
-else:
-	print("CircuitPython Loaded onto badge")
+print("CircuitPython Loaded onto badge")
 
 
-print("")
-# Try and flash cPy
-while not jig.ProgramMicroPython():
-	#Device didn't take the FW, Reset it and try again.
-	jig.ResetDevice()
-	time.sleep(1)
-	pass
+print("Loading Test Code onto Badge")
+if not jig.ProgramTestCode():
+	print("Failed to load test code!")
+	exit(-3)
+print("Test Code loaded succesfully")
+
