@@ -34,9 +34,15 @@ class TestJig:
 			return True
 		#Sometimes the copy doesn't take on the first try
 		os.system("cp temp/*.uf2 /media/pi/BADGEBOOT/ ")
-		if self.waitForDrive("CIRCUITPY",to=40):
+		if self.waitForDrive("CIRCUITPY",to=10):
                         return True
 		return False
+	
+	def ProgramApplication(self):
+		print("Copying over application files..")
+		os.system("cp temp/app/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
+		print("Done!")
+		return True
 
 	def waitForDrive(self,drive,to=15):
 		timeout=to
