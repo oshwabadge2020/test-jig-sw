@@ -69,7 +69,7 @@ class TestJig:
 				return True
 			time.sleep(1)
 			timeout -= 1
-			print(timeout,end=" . ")
+			print(timeout,end='.')
 		print()
 		
 		ERR("Timed out waiting for %s"%(drive))
