@@ -8,7 +8,7 @@ jig = Jig()
 STEP("Attempting to flash the bootloader onto the badge")
 jig.EraseDevice()
 if not jig.ProgramBootloader():
-	print("Failed to flash the bootloader!!")
+	ERR("Failed to flash the bootloader!!")
 	exit(-1)
 
 #Device programmed.
@@ -21,21 +21,21 @@ time.sleep(2)
 #Try and copy over the circuitpython uf2
 if not jig.ProgramMicroPython():
 	#Copy failed, Try again
-	print("Failed to load CircuitPython, Attempting again.")
+	ERR("Failed to load CircuitPython, Attempting again.")
 	if not jig.ProgramMicroPython():
-		print("Failed to load CircuitPython a secnd time. Resetting Badge")
+		ERR("Failed to load CircuitPython a secnd time. Resetting Badge")
 		time.sleep(2)
 		jig.ResetDevice()
 		time.sleep(2)
 		if not jig.ProgramMicroPython():
-			print("Failed to load CircuitPython a 3rd time, Badge Failed.")
+			ERR("Failed to load CircuitPython a 3rd time, Badge Failed.")
 			exit(-2)
-print("CircuitPython Loaded onto badge")
+OK("CircuitPython Loaded onto badge")
 
 
 STEP("Loading Test Code onto Badge")
 if not jig.ProgramTestCode():
-	print("Failed to load test code!")
+	ERR("Failed to load test code!")
 	exit(-3)
-print("Test Code loaded succesfully")
+OK("Test Code loaded succesfully")
 
