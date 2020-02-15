@@ -1,10 +1,11 @@
 from jig import TestJig as Jig
 import time
+from bcolors import TITLE,ERR,OK,STEP
 
 jig = Jig()
 
 # Try and program the device
-print("Attempting to flash the bootloader onto the badge")
+STEP("Attempting to flash the bootloader onto the badge")
 jig.EraseDevice()
 if not jig.ProgramBootloader():
 	print("Failed to flash the bootloader!!")
@@ -12,7 +13,7 @@ if not jig.ProgramBootloader():
 
 #Device programmed.
 #Reset device so it's in a known state
-print("Resettign device into a known state")
+STEP("Attempting to load CircuitPython")
 time.sleep(2)
 jig.ResetDevice()
 time.sleep(2)
@@ -32,7 +33,7 @@ if not jig.ProgramMicroPython():
 print("CircuitPython Loaded onto badge")
 
 
-print("Loading Test Code onto Badge")
+STEP("Loading Test Code onto Badge")
 if not jig.ProgramTestCode():
 	print("Failed to load test code!")
 	exit(-3)

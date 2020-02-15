@@ -1,5 +1,7 @@
 import os
 import time
+from bcolors import TITLE,ERR,OK
+
 
 class TestJig:
 	def __init__(self):
@@ -23,27 +25,35 @@ class TestJig:
 
 	def ProgramMicroPython(self):
 		# Do we have the bootloader partition mounted?
-		print("Waiting for BADGEBOOT...")
+		TITLE("Waiting for BADGEBOOT...")
 		if self.waitForDrive("BADGEBOOT"):
 			time.sleep(5)
-			print("Copying over Micropython...")
+			TITLE("Copying over Micropython...")
 			os.system("cp temp/*.uf2 /media/pi/BADGEBOOT/ ")
-			print("Done!")
-		print("Waiting for CIRCUITPY")
+			OK("Done!")
+		else:
+			ERR("Cound not find BADGEBOOT")
+			return False
+		TITLE("Waiting for CIRCUITPY")
 		if self.waitForDrive("CIRCUITPY",to=10):
+			OK("Found CIRCUITPY")
 			return True
+		else:
+			ERR("Cound not find CIRCUITPY")
+			return False
 		return False
-	
+
+
 	def ProgramApplication(self):
-		print("Copying over application files..")
+		TITLE("Copying over application files..")
 		os.system("cp temp/app/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
-		print("Done!")
+		OK("Done!")
 		return True
 
 	def ProgramTestCode(self):
-		print("Copying over application files..")
+		TITLE("Copying over application files..")
 		os.system("cp temp/test/code.py `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
-		print("Done!")
+		OK("Done!")
 		return True
 
 	def waitForDrive(self,drive,to=15):
@@ -52,13 +62,13 @@ class TestJig:
 		while ( timeout>0):
 			res = os.system("cat /proc/mounts | grep %s"%(drive))
 			if res==0:
-				print("Drive found")
+				OK("Drive found")
 				return True
 			time.sleep(1)
 			timeout -= 1
 			print(timeout)
 		
-		print("Timed out waiting for %s"%(drive))
+		ERR("Timed out waiting for %s"%(drive))
 		return False
 
 	def LoadTestScript(self):
