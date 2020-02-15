@@ -32,10 +32,6 @@ class TestJig:
 		print("Waiting for CIRCUITPY")
 		if self.waitForDrive("CIRCUITPY",to=10):
 			return True
-		#Sometimes the copy doesn't take on the first try
-		os.system("cp binaries/*.uf2 /media/pi/BADGEBOOT/ ")
-		if self.waitForDrive("CIRCUITPY",to=40):
-                        return True
 		return False
 
 	def waitForDrive(self,drive,to=15):
