@@ -9,7 +9,9 @@ class TestJig:
 
 	def ResetDevice(self):	
 		TITLE("Resetting Device using SWD")
+		time.sleep(2)
 		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -c \"init\" -c \"reset run\" -c \"exit\"")
+		time.sleep(2)
 		return True
 
 	def EraseDevice(self):

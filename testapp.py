@@ -10,13 +10,15 @@ jig.EraseDevice()
 if not jig.ProgramBootloader():
 	ERR("Failed to flash the bootloader!!")
 	exit(-1)
+OK("Bootloader Programmed Sucesfully")
 
 #Device programmed.
 #Reset device so it's in a known state
 STEP("Attempting to load CircuitPython")
-time.sleep(2)
-jig.ResetDevice()
-time.sleep(2)
+if not jig.ResetDevice():
+	ERR("Failed to reset device!!")
+	exit(-1)
+OK("Device Reset Sucesfully")
 
 #Try and copy over the circuitpython uf2
 if not jig.ProgramMicroPython():
