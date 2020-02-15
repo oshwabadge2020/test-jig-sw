@@ -37,7 +37,7 @@ class TestJig:
 		else:
 			ERR("Cound not find bootloader mass storage devic")
 			return False
-		TITLE("Waiting CircuitPython mass storage device")e
+		TITLE("Waiting CircuitPython mass storage device")
 		if self.waitForDrive("CIRCUITPY",to=10):
 			OK("Found CircuitPython mass storage device")
 			return True
