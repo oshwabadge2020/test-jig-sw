@@ -1,6 +1,6 @@
 import os
 import time
-from bcolors import TITLE,ERR,OK
+from bcolors import TITLE,ERR,OK,CMD
 
 
 class TestJig:
