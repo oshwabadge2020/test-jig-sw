@@ -51,15 +51,17 @@ class TestJig:
 
 	def ProgramApplication(self):
 		TITLE("Copying over application files..")
-		self.execute("cp temp/app/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
-		OK("Done!")
-		return True
+		if self.execute("cp temp/app/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/") ==0:
+			OK("Done!")
+			return True
+		return False
 
 	def ProgramTestCode(self):
 		TITLE("Copying over badge test files..")
-		self.execute("cp temp/test/code.py `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
-		OK("Done!")
-		return True
+		if self.execute("cp temp/test/code.py `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/") == 0
+			OK("Done!")
+			return True
+		return False
 
 	def waitForDrive(self,drive,to=15):
 		timeout=to
