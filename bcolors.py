@@ -6,6 +6,7 @@ class bcolors:
     FAIL = '\033[91m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
+	 CYAN = '\033[96m'
     UNDERLINE = '\033[4m'
 
 def ERR(st):
@@ -16,6 +17,9 @@ def OK(st):
 
 def TITLE(st):
 		print("%s%s%s%s"%(bcolors.WARNING,bcolors.BOLD,st,bcolors.ENDC))
+
+def CMD():
+		print("%s%s%s%s"%(bcolors.CYAN,"",st,bcolors.ENDC))
 
 def STEP(st):
 		print("\n\n%s%s%s%s%s\n"%(bcolors.UNDERLINE,bcolors.BOLD,bcolors.OKBLUE,st,bcolors.ENDC))

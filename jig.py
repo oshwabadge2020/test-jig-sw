@@ -10,19 +10,19 @@ class TestJig:
 	def ResetDevice(self):	
 		TITLE("Resetting Device using SWD")
 		time.sleep(2)
-		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -c \"init\" -c \"reset run\" -c \"exit\"")
+		self.execute("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -c \"init\" -c \"reset run\" -c \"exit\"")
 		time.sleep(2)
 		return True
 
 	def EraseDevice(self):
 		TITLE("Erasing Device using SWD..")
-		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/mass-erase.ocd")
+		self.execute("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/mass-erase.ocd")
 		return True
 
 	def ProgramBootloader(self):
 		# Execute command.
 		TITLE("Programming device using SWD..")
-		res = os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/flash-boot.ocd")
+		res = self.execute("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/flash-boot.ocd")
 		if res == 0:
 			return True
 		return False
@@ -34,7 +34,7 @@ class TestJig:
 		if self.waitForDrive("BADGEBOOT"):
 			time.sleep(5)
 			TITLE("Copying over Micropython...")
-			os.system("cp temp/*.uf2 /media/pi/BADGEBOOT/ ")
+			self.execute("cp temp/*.uf2 /media/pi/BADGEBOOT/ ")
 			OK("Done!")
 		else:
 			ERR("Cound not find bootloader mass storage devic")
@@ -51,13 +51,13 @@ class TestJig:
 
 	def ProgramApplication(self):
 		TITLE("Copying over application files..")
-		os.system("cp temp/app/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
+		self.execute("cp temp/app/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
 		OK("Done!")
 		return True
 
 	def ProgramTestCode(self):
 		TITLE("Copying over badge test files..")
-		os.system("cp temp/test/code.py `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
+		self.execute("cp temp/test/code.py `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
 		OK("Done!")
 		return True
 
@@ -65,7 +65,7 @@ class TestJig:
 		timeout=to
 		res=255
 		while ( timeout>0):
-			res = os.system("cat /proc/mounts | grep %s"%(drive))
+			res = self.execute("cat /proc/mounts | grep %s"%(drive))
 			if res==0:
 				OK("Drive found")
 				return True
@@ -94,3 +94,7 @@ class TestJig:
 
 	def DisplayImageOnBadge(self,image):
 		pass
+
+	def execute(cmd):
+		CMD(cmd)
+		return os.system(cmd)
