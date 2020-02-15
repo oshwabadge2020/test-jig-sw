@@ -18,7 +18,7 @@ def OK(st):
 def TITLE(st):
 		print("%s%s%s%s"%(bcolors.WARNING,bcolors.BOLD,st,bcolors.ENDC))
 
-def CMD():
+def CMD(st):
 		print("%s%s%s%s"%(bcolors.CYAN,"",st,bcolors.ENDC))
 
 def STEP(st):
