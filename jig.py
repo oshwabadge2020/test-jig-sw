@@ -7,39 +7,42 @@ class TestJig:
 	def __init__(self):
 		pass
 
-	def ResetDevice(self):
+	def ResetDevice(self):	
+		TITLE("Resetting Device using SWD")
 		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -c \"init\" -c \"reset run\" -c \"exit\"")
 		return True
 
 	def EraseDevice(self):
+		TITLE("Erasing Device using SWD..")
 		os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/mass-erase.ocd")
 		return True
 
 	def ProgramBootloader(self):
 		# Execute command.
-
+		TITLE("Programming device using SWD..")
 		res = os.system("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -f openocd-scripts/flash-boot.ocd")
 		if res == 0:
 			return True
 		return False
 
 	def ProgramMicroPython(self):
+		TITLE("Copying CircuotPython uf2 over USB")
 		# Do we have the bootloader partition mounted?
-		TITLE("Waiting for BADGEBOOT...")
+		TITLE("Waiting for bootloader mass storage device...")
 		if self.waitForDrive("BADGEBOOT"):
 			time.sleep(5)
 			TITLE("Copying over Micropython...")
 			os.system("cp temp/*.uf2 /media/pi/BADGEBOOT/ ")
 			OK("Done!")
 		else:
-			ERR("Cound not find BADGEBOOT")
+			ERR("Cound not find bootloader mass storage devic")
 			return False
-		TITLE("Waiting for CIRCUITPY")
+		TITLE("Waiting CircuitPython mass storage device")e
 		if self.waitForDrive("CIRCUITPY",to=10):
-			OK("Found CIRCUITPY")
+			OK("Found CircuitPython mass storage device")
 			return True
 		else:
-			ERR("Cound not find CIRCUITPY")
+			ERR("Cound not find CircuitPython mass storage device")
 			return False
 		return False
 
@@ -51,7 +54,7 @@ class TestJig:
 		return True
 
 	def ProgramTestCode(self):
-		TITLE("Copying over application files..")
+		TITLE("Copying over badge test files..")
 		os.system("cp temp/test/code.py `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/")
 		OK("Done!")
 		return True
