@@ -95,6 +95,6 @@ class TestJig:
 	def DisplayImageOnBadge(self,image):
 		pass
 
-	def execute(cmd):
+	def execute(self,cmd):
 		CMD(cmd)
 		return os.system(cmd)
