@@ -18,5 +18,5 @@ def TITLE(st):
 		print("%s%s%s%s"%(bcolors.WARNING,bcolors.BOLD,st,bcolors.ENDC))
 
 def STEP(st):
-		print("\n\n\n%s%s%s%s%s\n"%(bcolors.UNDERLINE,bcolors.BOLD,bcolors.OKBLUE,st,bcolors.ENDC))
+		print("\n\n%s%s%s%s%s\n"%(bcolors.UNDERLINE,bcolors.BOLD,bcolors.OKBLUE,st,bcolors.ENDC))
 
