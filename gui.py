@@ -23,7 +23,7 @@ swver = thorpy.OneLineText.make("Provisioner Version:  %s" % (" "))
 icon = thorpy.Image("none.png")
 
 if res == results.PASS:
-	icon = thorpy.Image("fail.png")
+	icon = thorpy.Image("pass.png")
 elif res == results.FAIL_BOOT:
 	icon = thorpy.Image("fail.png")
 elif res == results.FAIL_RESET:
