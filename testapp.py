@@ -6,6 +6,8 @@ from results import *
 
 def appexit(result):
 	print(result)
+	if result != results.PASS:
+		time.sleep(8)
 	os.system("echo %d > result.txt"%(result))
 	exit(result)
 
