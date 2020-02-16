@@ -95,6 +95,7 @@ class TestJig:
 
 	def readDisplayQRCode(self):
 		TITLE("Reading Displayed QR code..")
+		time.sleep(4)
 		self.execute("rm testimg.png testimg.jpg testimg.txt")
 		self.execute("ffmpeg -f video4linux2 -s 1920x1080 -i /dev/video0 -vframes 1 testimg.jpg")
 		self.execute("convert testimg.jpg -rotate 270 testimg.png")
