@@ -101,7 +101,7 @@ class TestJig:
 		self.execute("python3 processimg.py testimg.png")
 		scanres = self.execute("zbarimg -q processed.png > testimg.txt")
 		if scanres==0:
-			rfile = open('result.txt','r')
+			rfile = open('testimg.txt','r')
 			code = rfile.read()
 			TITLE("Got data: %s"%(scanres))
 			return code
