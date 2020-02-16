@@ -9,7 +9,7 @@ def appexit(result):
 	exit(result)
 
 jig = Jig()
-os.system("echo NONE > result.txt")
+
 
 # Try and program the device
 STEP("Attempting to flash the bootloader onto the badge")
