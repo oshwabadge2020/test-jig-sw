@@ -5,6 +5,7 @@ from bcolors import TITLE,ERR,OK,STEP
 import results as r
 
 def appexit(result):
+	print(result)
 	os.system("echo %d > result.txt"%(result))
 	exit(result)
 
