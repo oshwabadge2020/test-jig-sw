@@ -14,12 +14,13 @@ OK("Bootloader Programmed Sucesfully")
 
 #Device programmed.
 #Reset device so it's in a known state
-STEP("Attempting to load CircuitPython")
+STEP("Attempting to Reset Badge")
 if not jig.ResetDevice():
 	ERR("Failed to reset device!!")
 	exit(-1)
 OK("Device Reset Sucesfully")
 
+STEP("Attempting to load CircuitPython")
 #Try and copy over the circuitpython uf2
 if not jig.ProgramMicroPython():
 	#Copy failed, Try again
