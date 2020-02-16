@@ -3,7 +3,7 @@ import thorpy
 import pygame
 import subprocess
 import os
-import results as r
+from results import *
 
 
 application = thorpy.Application((480,730), "Badge Programmer")

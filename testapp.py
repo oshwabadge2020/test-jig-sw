@@ -2,7 +2,7 @@ from jig import TestJig as Jig
 import os
 import time
 from bcolors import TITLE,ERR,OK,STEP
-import results as r
+from results import *
 
 def appexit(result):
 	print(result)
@@ -17,7 +17,7 @@ STEP("Attempting to flash the bootloader onto the badge")
 jig.EraseDevice()
 if not jig.ProgramBootloader():
 	ERR("Failed to flash the bootloader!!")
-	appexit(r.FAIL_BOOT)
+	appexit(results.FAIL_BOOT)
 OK("Bootloader Programmed Sucesfully")
 
 #Device programmed.
@@ -25,7 +25,7 @@ OK("Bootloader Programmed Sucesfully")
 STEP("Attempting to Reset Badge")
 if not jig.ResetDevice():
 	ERR("Failed to reset device!!")
-	appexit(r.FAIL_RESET)
+	appexit(results.FAIL_RESET)
 OK("Device Reset Sucesfully")
 
 STEP("Attempting to load CircuitPython")
@@ -40,14 +40,14 @@ if not jig.ProgramMicroPython():
 		time.sleep(2)
 		if not jig.ProgramMicroPython():
 			ERR("Failed to load CircuitPython a 3rd time, Badge Failed.")
-			appexit(r.FAIL_CPY)
+			appexit(results.FAIL_CPY)
 OK("CircuitPython Loaded onto badge")
 
 
 STEP("Loading Test Code onto Badge")
 if not jig.ProgramTestCode():
 	ERR("Failed to load test code!")
-	appexit(r.FAIL_TEST)
+	appexit(results.FAIL_TEST)
 OK("Test Code loaded succesfully")
 
-appexit(r.PASS)
+appexit(results.PASS)
