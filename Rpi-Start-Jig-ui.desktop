@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=Rpi-Start-Jig-ui
+Exec=/home/pi/test-jig-sw/launch.sh
