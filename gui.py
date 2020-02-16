@@ -4,7 +4,7 @@ import pygame
 import subprocess
 
 
-application = thorpy.Application((480, 800), "Badge Programmer",flags=1)
+application = thorpy.Application((0,0), "Badge Programmer",flags=1)
 pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 
 #vfile = open('fwver.txt','r')
