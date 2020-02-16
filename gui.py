@@ -12,7 +12,7 @@ application = thorpy.Application((480,730), "Badge Programmer")
 #fwver = vfile.read()
 
 rfile = open('result.txt','r')
-try
+try:
 	res = int(rfile.read())
 except ValueError:
 	res=100
