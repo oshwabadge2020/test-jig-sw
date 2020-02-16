@@ -13,7 +13,7 @@ rfile = open('result.txt','r')
 res = rfile.read()
 
 
-fwver = thorpy.OneLineText.make("Firmware Version   :  %s" % (result)) 
+fwver = thorpy.OneLineText.make("Firmware Version   :  %s" % (res)) 
 swver = thorpy.OneLineText.make("Provisioner Version:  %s" % (" ")) 
 
 icon = thorpy.Image("none.png")
