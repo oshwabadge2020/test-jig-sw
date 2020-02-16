@@ -35,8 +35,6 @@ def programDev():
   command = "xterm -fn fixed -fullscreen -e %s" % "python3 testapp.py"
   process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
   process.wait()
-  result = subprocess.check_output()
-  os.system("echo %d > result.txt"%(result))
   exit(0)
 
 
