@@ -2,6 +2,8 @@
 import thorpy
 import pygame
 import subprocess
+import os
+import results as r
 
 
 application = thorpy.Application((480,730), "Badge Programmer")
@@ -34,8 +36,8 @@ def programDev():
   process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
   process.wait()
   result = subprocess.check_output()
-  if result==0:
-    pass
+  os.system("echo %d > result.txt"%(result))
+  exit(0)
 
 
 
