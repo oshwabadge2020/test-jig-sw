@@ -22,7 +22,9 @@ def getNewProv():
   pass
 
 def programDev():
-  pass
+  command = "xterm -fn fixed -fullscreen -e %s" % "python3 testapp.py"
+  process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+  process.wait()
 
 
 
