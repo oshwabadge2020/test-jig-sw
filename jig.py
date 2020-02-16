@@ -103,7 +103,7 @@ class TestJig:
 		if scanres==0:
 			rfile = open('testimg.txt','r')
 			code = rfile.read()
-			TITLE("Got data: %s"%(scanres))
+			TITLE("Got data: %s"%(code))
 			return code
 		TITLE("No Data Found")
 		return False
