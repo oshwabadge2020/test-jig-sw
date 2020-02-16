@@ -96,11 +96,10 @@ class TestJig:
 	def readDisplayQRCode(self):
 		TITLE("Reading Displayed QR code..")
 		time.sleep(4)
-		self.execute("rm testimg.png testimg.jpg testimg.txt")
+		self.execute("rm testimg.png processed.png testimg.txt")
 		self.execute("ffmpeg -f video4linux2 -s 1920x1080 -i /dev/video0 -vframes 1 testimg.png")
-		self.execute("convert testimg.png -rotate 270 testimg.png")
-		self.execute("convert testimg.png -set colorspace Gray -separate -average testimg.png")
-		scanres = self.execute("zbarimg -q testimg.png > testimg.txt")
+		self.execute("python3 processimg.py testimg.png")
+		scanres = self.execute("zbarimg -q processed.png > testimg.txt")
 		if scanres==0:
 			rfile = open('result.txt','r')
 			code = rfile.read()
