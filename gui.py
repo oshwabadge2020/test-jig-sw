@@ -27,7 +27,7 @@ def programDev():
   process.wait()
 
 
-
+icon = thorpy.Image("pass.png")
 
 division = thorpy.Line.make(size=300, type_="horizontal") 
 ProgramDevice = thorpy.make_button("Program Device",func = programDev)
@@ -43,7 +43,7 @@ UpdateProvisioner.set_size((480,140))
 UpdateProvisioner.set_font_size(40)
 
 background = thorpy.Background.make(
-elements=[fwver,swver,division,ProgramDevice,UpdateFirmware,UpdateProvisioner])
+elements=[icon,fwver,swver,division,ProgramDevice,UpdateFirmware,UpdateProvisioner])
 
 
 thorpy.store(background)
