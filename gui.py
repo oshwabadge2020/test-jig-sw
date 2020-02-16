@@ -9,8 +9,11 @@ application = thorpy.Application((480,730), "Badge Programmer")
 #vfile = open('fwver.txt','r')
 #fwver = vfile.read()
 
+rfile = open('result.txt','r')
+res = rfile.read()
 
-fwver = thorpy.OneLineText.make("Firmware Version   :  %s" % (" ")) 
+
+fwver = thorpy.OneLineText.make("Firmware Version   :  %s" % (result)) 
 swver = thorpy.OneLineText.make("Provisioner Version:  %s" % (" ")) 
 
 icon = thorpy.Image("none.png")
