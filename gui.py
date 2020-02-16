@@ -12,7 +12,7 @@ application = thorpy.Application((480,730), "Badge Programmer")
 #fwver = vfile.read()
 
 rfile = open('result.txt','r')
-res = rfile.read()
+res = int(rfile.read())
 
 
 fwver = thorpy.OneLineText.make("Firmware Version   :  %s" % (res)) 
