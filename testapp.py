@@ -54,4 +54,6 @@ if not jig.ProgramTestCode():
 	appexit(results.FAIL_TEST)
 OK("Test Code loaded succesfully")
 
+jig.readDisplayQRCode()
+
 appexit(results.PASS)
