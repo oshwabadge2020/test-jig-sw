@@ -49,4 +49,4 @@ if not jig.ProgramTestCode():
 	appexit(r.FAIL_TEST)
 OK("Test Code loaded succesfully")
 
-os.system("echo PASS > result.txt")
+appexit(r.PASS)
