@@ -35,13 +35,13 @@ class TestJig:
 			time.sleep(5)
 			TITLE("Copying over Micropython...")
 			self.execute("cp temp/*.uf2 /media/pi/BADGEBOOT/ ")
-			OK("Done!")
+			TITLE("Done!")
 		else:
 			ERR("Cound not find bootloader mass storage devic")
 			return False
 		TITLE("Waiting CircuitPython mass storage device")
 		if self.waitForDrive("CIRCUITPY",to=10):
-			OK("Found CircuitPython mass storage device")
+			TITLE("Found CircuitPython mass storage device")
 			return True
 		else:
 			ERR("Cound not find CircuitPython mass storage device")
@@ -52,14 +52,14 @@ class TestJig:
 	def ProgramApplication(self):
 		TITLE("Copying over application files..")
 		if self.execute("cp temp/app/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/") ==0:
-			OK("Done!")
+			TITLE("Done!")
 			return True
 		return False
 
 	def ProgramTestCode(self):
 		TITLE("Copying over badge test files..")
 		if self.execute("cp temp/test/code.py `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/") == 0:
-			OK("Done!")
+			TITLE("Done!")
 			return True
 		return False
 
@@ -69,7 +69,7 @@ class TestJig:
 		while ( timeout>0):
 			res = self.execute("cat /proc/mounts | grep %s"%(drive))
 			if res==0:
-				OK("Drive found")
+				TITLE("Drive found")
 				return True
 			time.sleep(1)
 			timeout -= 1
