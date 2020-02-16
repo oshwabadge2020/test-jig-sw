@@ -20,22 +20,24 @@ swver = thorpy.OneLineText.make("Provisioner Version:  %s" % (" "))
 
 icon = thorpy.Image("none.png")
 
-if res = results.PASS:
+if res == results.PASS:
 	icon = thorpy.Image("fail.png")
-elif res = results.FAIL_BOOT:
+elif res == results.FAIL_BOOT:
 	icon = thorpy.Image("fail.png")
-elif res = results.FAIL_RESET:
+elif res == results.FAIL_RESET:
 	icon = thorpy.Image("fail.png")
-elif res = results.FAIL_CPY:
+elif res == results.FAIL_CPY:
 	icon = thorpy.Image("fail.png")
-elif res = results.FAIL_TEST:
+elif res == results.FAIL_TEST:
 	icon = thorpy.Image("fail.png")
-elif res = results.FAIL_SCREEN:
+elif res == results.FAIL_SCREEN:
 	icon = thorpy.Image("fail.png")
-elif res = results.FAIL_APP:
+elif res == results.FAIL_APP:
 	icon = thorpy.Image("fail.png")
 else:
-	thorpy.Image("none.png")
+	icon = thorpy.Image("none.png")
+
+
 def getNewFW():
   #exit(0)
   icon.image="pass.png"
