@@ -9,14 +9,16 @@ application = thorpy.Application((480,730), "Badge Programmer")
 #vfile = open('fwver.txt','r')
 #fwver = vfile.read()
 
-resultf = open('result.txt','r')
-result = resultf.read()
 
 fwver = thorpy.OneLineText.make("Firmware Version   :  %s" % (" ")) 
 swver = thorpy.OneLineText.make("Provisioner Version:  %s" % (" ")) 
 
+icon = thorpy.Image("none.png")
+
 def getNewFW():
-  exit(0)
+  #exit(0)
+  icon.image="pass.png"
+  pygame.display.update()
   pass
 
 
@@ -28,12 +30,12 @@ def programDev():
   command = "xterm -fn fixed -fullscreen -e %s" % "python3 testapp.py"
   process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
   process.wait()
-  exit(0)
+  result = subprocess.check_output()
+  if result==0:
+    pass
 
 
-icon = thorpy.Image("none.png")
-if result=="PASS":
-	icon = thorpy.Image("pass.png")
+
 
 division = thorpy.Line.make(size=300, type_="horizontal") 
 ProgramDevice = thorpy.make_button("Program Device",func = programDev)

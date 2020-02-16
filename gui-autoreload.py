@@ -6,4 +6,4 @@ while True:
   command = "python3 gui.py"
   process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
   process.wait()
-  time.sleep(2)
+  time.sleep(0.1)
