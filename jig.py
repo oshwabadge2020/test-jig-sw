@@ -37,14 +37,14 @@ class TestJig:
 			self.execute("cp temp/*.uf2 /media/pi/BADGEBOOT/ ")
 			TITLE("Done!")
 		else:
-			ERR("Cound not find bootloader mass storage devic")
+			TITLE("Cound not find bootloader mass storage devic")
 			return False
 		TITLE("Waiting CircuitPython mass storage device")
 		if self.waitForDrive("CIRCUITPY",to=10):
 			TITLE("Found CircuitPython mass storage device")
 			return True
 		else:
-			ERR("Cound not find CircuitPython mass storage device")
+			TITLE("Cound not find CircuitPython mass storage device")
 			return False
 		return False
 
@@ -75,7 +75,7 @@ class TestJig:
 			timeout -= 1
 		print()
 		
-		ERR("Timed out waiting for %s"%(drive))
+		TITLE("Timed out waiting for %s"%(drive))
 		return False
 
 	def LoadTestScript(self):
