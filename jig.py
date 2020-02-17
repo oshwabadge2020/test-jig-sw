@@ -97,6 +97,17 @@ class TestJig:
 		TITLE("Updating Jig Code to latest..")
 		self.execute("git pull")
 
+	def ProgramSafeModeImage(self):
+		TITLE("Programming Safe Mode Image..")
+		if self.waitForDrive("BADGEBOOT"):
+			time.sleep(5)
+			TITLE("Copying over Recovery Image...")
+			res = self.execute("cp safe/safemode.uf2 /media/pi/BADGEBOOT/ ")
+			TITLE("Done!")
+			if res == 0:
+				return True
+		return False
+
 	def readDisplayQRCode(self):
 		TITLE("Reading Displayed QR code..")
 		time.sleep(4)
