@@ -10,7 +10,7 @@ from digitalio import DigitalInOut, Direction, Pull
 #backlight.value = False
 
 pwm = pulseio.PWMOut(board.TFT_BACKLIGHT)
-pwm.duty_cycle = 65535-16000
+pwm.duty_cycle = 0#65535-16000
 
 display = board.DISPLAY
 
