@@ -93,6 +93,10 @@ class TestJig:
 	def CheckCurrenRange(self,rail,high,low):
 		pass
 
+	def updateJigCode(self):
+		TITLE("Updating Jig Code to latest..")
+		self.execute("git pull")
+
 	def readDisplayQRCode(self):
 		TITLE("Reading Displayed QR code..")
 		time.sleep(4)
