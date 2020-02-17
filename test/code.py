@@ -2,6 +2,8 @@ import displayio
 import adafruit_miniqr
 import board
 import pulseio
+import busio
+
 from digitalio import DigitalInOut, Direction, Pull
 #backlight = DigitalInOut(board.TFT_BACKLIGHT)
 #backlight.direction = Direction.OUTPUT
@@ -25,6 +27,15 @@ def bitmap_qr(matrix):
 	return bitmap
 
 print('Hello World!')
+
+print('Scanning for I2C Devices..')
+
+i2c = busio.I2C(board.SCL, board.SDA)
+while not i2c.try_lock():
+	pass
+arr = [str(hex(x)) for x in i2c.scan()]
+print(arr)
+
 qr = adafruit_miniqr.QRCode()
 qr.add_data(b'aaaaa')
 qr.make()

@@ -51,14 +51,14 @@ class TestJig:
 
 	def ProgramApplication(self):
 		TITLE("Copying over application files..")
-		if self.execute("cp temp/app/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/") ==0:
+		if self.execute("cp -vr temp/app/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/") ==0:
 			TITLE("Done!")
 			return True
 		return False
 
 	def ProgramTestCode(self):
 		TITLE("Copying over badge test files..")
-		if self.execute("cp test/code.py `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/") == 0:
+		if self.execute("cp -vr test/* `cat /proc/mounts | grep CIRCUIT |  awk -F ' ' '{print $2;}' `/") == 0:
 			TITLE("Done!")
 			return True
 		return False
