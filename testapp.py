@@ -54,6 +54,15 @@ if not jig.ProgramTestCode():
 	appexit(results.FAIL_TEST)
 OK("Test Code loaded succesfully")
 
-jig.readDisplayQRCode()
+STEP("Reading Test results from badge.")
+results = jig.readDisplayQRCode()
+if results!=False:
+	appexit(results.FAIL_TEST)
+	ERR("No Data from badge!")
+
+if results['post']!=1:
+	print(results)
+	ERR("Badge reports failed POST!")
+	appexit(results.FAIL_TEST)
 
 appexit(results.PASS)
