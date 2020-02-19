@@ -6,6 +6,7 @@ import busio
 import microcontroller as m
 import time
 from analogio import AnalogIn
+import array
 
 from digitalio import DigitalInOut, Direction, Pull
 #backlight = DigitalInOut(board.TFT_BACKLIGHT)
@@ -57,9 +58,11 @@ analog_in = AnalogIn(m.pin.P0_31)
 print("Voltage:\t%s"%(str(analog_in.value)))
 
 
-qrstring = str(addrs) + "," + str(analog_in.value*(3.3/2**16)*2))
+
+qrstring = bytes(str(addrs),'utf-8')
+print(qrstring)
 qr = adafruit_miniqr.QRCode()
-qr.add_data(array.array('B',qrstring))
+qr.add_data(qrstring)
 qr.make()
 
 palette = displayio.Palette(2)
@@ -70,7 +73,7 @@ bitmap = bitmap_qr(qr.matrix)
 tile_grid = displayio.TileGrid(bitmap, pixel_shader=palette)
 tile_grid.flip_y=True
 # Create a Group to hold the TileGrid
-group = displayio.Group(scale=8, x=0, y=0)
+group = displayio.Group(scale=6, x=0, y=0)
 group.append(tile_grid)
 display.show(group)
 while True:
