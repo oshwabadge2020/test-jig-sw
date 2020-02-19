@@ -57,8 +57,9 @@ analog_in = AnalogIn(m.pin.P0_31)
 print("Voltage:\t%s"%(str(analog_in.value)))
 
 
+qrstring = str(addrs) + "," + str(analog_in.value*(3.3/2**16)*2))
 qr = adafruit_miniqr.QRCode()
-qr.add_data(b'abcdabcdabcdabcdabcdabcdabcdabcd')
+qr.add_data(array.array('B',qrstring))
 qr.make()
 
 palette = displayio.Palette(2)
