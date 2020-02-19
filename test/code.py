@@ -3,6 +3,9 @@ import adafruit_miniqr
 import board
 import pulseio
 import busio
+import microcontroller as m
+import time
+from analogio import AnalogIn
 
 from digitalio import DigitalInOut, Direction, Pull
 #backlight = DigitalInOut(board.TFT_BACKLIGHT)
@@ -29,6 +32,30 @@ def bitmap_qr(matrix):
 print('Hello World!')
 
 print('Scanning for I2C Devices..')
+i2c = busio.I2C(board.SCL, board.SDA)
+i2c.try_lock()
+addrs = [hex(x) for x in i2c.scan()]
+print(addrs)
+# ['0x1e', '0x39', '0x6b', '0x76']
+
+if len(addrs)==4:
+	if '0x1e' in addrs:
+		if '0x39' in addrs:
+			if '0x6b' in addrs:
+				if '0x76' in addrs:
+					print("All devices present!") 
+
+
+print('Checking Charge Status Pin')
+charge_status = DigitalInOut(m.pin.P0_16)
+charge_status.direction = Direction.INPUT
+charge_status.pull = Pull.UP
+print("Charge Pin:\t%s"%(str(charge_status.value)))
+
+print("Checking Battery Voltage")
+analog_in = AnalogIn(m.pin.P0_31)
+print("Voltage:\t%s"%(str(analog_in.value)))
+
 
 qr = adafruit_miniqr.QRCode()
 qr.add_data(b'abcdabcdabcdabcdabcdabcdabcdabcd')
@@ -46,4 +73,6 @@ group = displayio.Group(scale=8, x=0, y=0)
 group.append(tile_grid)
 display.show(group)
 while True:
+	print("Voltage:\t%s"%(str(analog_in.value*(3.3/2**16)*2)))
+	time.sleep(1)
 	pass
