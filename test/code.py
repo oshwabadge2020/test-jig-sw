@@ -59,7 +59,11 @@ print("Voltage:\t%s"%(str(analog_in.value)))
 
 
 
+<<<<<<< HEAD
 qrstring = bytes("{'iic':"+str(addrs)+",'adc':"+str(analog_in.value))+",'post':1}",'utf-8')
+=======
+qrstring = bytes("{"+str(addrs)+","+str(analog_in.value)+"}",'utf-8')
+>>>>>>> d724a31a990d859e7eda663c0b1001388aefc6b5
 print(qrstring)
 qr = adafruit_miniqr.QRCode()
 qr.add_data(qrstring)

@@ -119,7 +119,10 @@ class TestJig:
 			rfile = open('testimg.txt','r')
 			code = rfile.read()
 			TITLE("Got data: %s"%(code))
-			return code
+			code = code.split(":")
+			if len(code)>=1:
+				return True
+			return False
 		TITLE("No Data Found")
 		return False
 
