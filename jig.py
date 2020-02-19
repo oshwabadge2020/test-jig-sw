@@ -1,7 +1,7 @@
 import os
 import time
 from bcolors import TITLE,ERR,OK,CMD
-
+import json
 
 class TestJig:
 	def __init__(self):
@@ -121,7 +121,11 @@ class TestJig:
 			TITLE("Got data: %s"%(code))
 			code = code.split(":")
 			if len(code)>=1:
-				return True
+				try:
+					results = json.loads(code)
+					return results
+				except json.decoder.JSONDecodeError:
+					return False
 			return False
 		TITLE("No Data Found")
 		return False
