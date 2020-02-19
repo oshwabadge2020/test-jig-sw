@@ -31,7 +31,7 @@ print('Hello World!')
 print('Scanning for I2C Devices..')
 
 qr = adafruit_miniqr.QRCode()
-qr.add_data(b'aaaaa')
+qr.add_data(b'abcdabcdabcdabcdabcdabcdabcdabcd')
 qr.make()
 
 palette = displayio.Palette(2)
@@ -42,7 +42,7 @@ bitmap = bitmap_qr(qr.matrix)
 tile_grid = displayio.TileGrid(bitmap, pixel_shader=palette)
 tile_grid.flip_y=True
 # Create a Group to hold the TileGrid
-group = displayio.Group(scale=9, x=0, y=0)
+group = displayio.Group(scale=8, x=0, y=0)
 group.append(tile_grid)
 display.show(group)
 while True:
