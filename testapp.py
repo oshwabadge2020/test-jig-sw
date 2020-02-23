@@ -54,6 +54,16 @@ if not jig.ProgramTestCode():
 	appexit(results.FAIL_TEST)
 OK("Test Code loaded succesfully")
 
-jig.readDisplayQRCode()
+STEP("Checking results of Badge self-test")
+selftest = jig.readDisplayQRCode()
+if selftest==False:
+	ERR("Could not see the screen! Screen test has failed.")
+	appexit(results.FAIL_SCREEN)
 
+if selftest['IIC']:
+	print("IIC OK")
+else:
+	ERR("IIC Fail, We are missing devices. %s"%selftest['IIC'])
+	appexit(results.FAIL_TEST)
+OK("Badge Passed!")
 appexit(results.PASS)

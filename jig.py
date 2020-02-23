@@ -119,13 +119,13 @@ class TestJig:
 			rfile = open('testimg.txt','r')
 			code = rfile.read()
 			TITLE("Got data: %s"%(code))
-			code = code.split(":")
+			code = code.split(",")
 			if len(code)>=1:
-				try:
-					results = json.loads(code)
-					return results
-				except json.decoder.JSONDecodeError:
-					return False
+				d = {}
+				for c in code:
+					f = c.split(":")
+					d[f[0]]=f[1]	
+				return d
 			return False
 		TITLE("No Data Found")
 		return False
