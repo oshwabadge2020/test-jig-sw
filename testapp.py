@@ -76,7 +76,7 @@ OK("Test Code loaded succesfully")
 
 STEP("Reading Test results from badge.")
 results = jig.readDisplayQRCode()
-if results!=False:
+if results==False:
 	appexit(results.FAIL_TEST)
 	ERR("No Data from badge!")
 
