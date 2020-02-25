@@ -6,6 +6,20 @@ import json
 class TestJig:
 	def __init__(self):
 		pass
+	def GetMACviaSWD(self):
+		TITLE("Reading MAC Address from device")
+		self.execute("rm mac.txt")
+		res = self.execute("openocd -s tcl -f openocd-scripts/swd-pi.ocd  -c \"init\" -c \"reset run\" -c \"mdb 0x100000A4 6\" -c \"exit\" -l mac.txt")
+		if res!=0:
+			return False
+		rfile = open('mac.txt','r')
+		logresults = rfile.read().strip()
+		line = logresults.split("\n")[-1]
+		#print(line)
+		mac = line.split(":")[1].strip().replace(" ",":")
+		#print(mac)
+		return mac
+
 
 	def ResetDevice(self):	
 		TITLE("Resetting Device using SWD")
@@ -119,13 +133,13 @@ class TestJig:
 			rfile = open('testimg.txt','r')
 			code = rfile.read()
 			TITLE("Got data: %s"%(code))
-			code = code.split(":")
+			code = code.split(",")
 			if len(code)>=1:
-				try:
-					results = json.loads(code)
-					return results
-				except json.decoder.JSONDecodeError:
-					return False
+				d = {}
+				for c in code:
+					f = c.split(":")
+					d[f[0]]=f[1]	
+				return d
 			return False
 		TITLE("No Data Found")
 		return False

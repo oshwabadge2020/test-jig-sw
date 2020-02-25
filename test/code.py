@@ -14,7 +14,7 @@ from digitalio import DigitalInOut, Direction, Pull
 #backlight.value = False
 
 pwm = pulseio.PWMOut(board.TFT_BACKLIGHT)
-pwm.duty_cycle = 0#65535-16000
+pwm.duty_cycle = 0 #65535-16000
 
 display = board.DISPLAY
 
@@ -35,17 +35,22 @@ print('Hello World!')
 print('Scanning for I2C Devices..')
 i2c = busio.I2C(board.SCL, board.SDA)
 i2c.try_lock()
-addrs = [hex(x) for x in i2c.scan()]
+addrs = ['%02x'%(x) for x in i2c.scan()]
 print(addrs)
 # ['0x1e', '0x39', '0x6b', '0x76']
 
+iicdevs = "X"
 if len(addrs)==4:
-	if '0x1e' in addrs:
-		if '0x39' in addrs:
-			if '0x6b' in addrs:
-				if '0x76' in addrs:
+	if '1e' in addrs:
+		if '39' in addrs:
+			if '6b' in addrs:
+				if '76' in addrs:
+					iicdevs = "V"
 					print("All devices present!") 
 
+iicdevstr  = ""
+for h in addrs:
+	iicdevstr +=h
 
 print('Checking Charge Status Pin')
 charge_status = DigitalInOut(m.pin.P0_16)
@@ -60,7 +65,7 @@ print("Voltage:\t%s"%(str(analog_in.value)))
 
 
 
-qrstring = bytes("{'iic':"+str(addrs)+",'adc':"+str(analog_in.value)+",'post':1}".replace("'","\""),'utf-8')
+qrstring = bytes(",IIC:%s,IICDEV:%s,ADC:%s"%(iicdevs,iicdevstr,str(analog_in.value).strip()),'utf-8')
 print(qrstring)
 qr = adafruit_miniqr.QRCode()
 qr.add_data(qrstring)

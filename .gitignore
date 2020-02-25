@@ -1,3 +1,7 @@
 binaries/*
 temp/*
 *.pyc
+*.jpg
+*.txt
+testimg*
+processed.png

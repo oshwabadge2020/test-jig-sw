@@ -3,9 +3,21 @@ import os
 import time
 from bcolors import TITLE,ERR,OK,STEP
 from results import *
+import logsheet
+
+netlog=None
+mac = ""
+try:
+	netlog = logsheet.LogSheet()
+except:
+	ERR("Count not connect to google docs sheet")
 
 def appexit(result):
-	print(result)
+	#print(result)
+	try:
+		netlog.logResult(mac,result)
+	except:
+		ERR("Could not record test result")
 	if result != results.PASS:
 		time.sleep(8)
 	else:
@@ -15,10 +27,17 @@ def appexit(result):
 
 jig = Jig()
 
+#Read device MAC
 
 # Try and program the device
 STEP("Attempting to flash the bootloader onto the badge")
 jig.EraseDevice()
+
+mac = jig.GetMACviaSWD()
+if mac==False:
+	ERR("Could not read MAC Address")
+	appexit(results.FAIL_BOOT)
+
 if not jig.ProgramBootloader():
 	ERR("Failed to flash the bootloader!!")
 	appexit(results.FAIL_BOOT)
@@ -54,6 +73,7 @@ if not jig.ProgramTestCode():
 	appexit(results.FAIL_TEST)
 OK("Test Code loaded succesfully")
 
+
 STEP("Reading Test results from badge.")
 results = jig.readDisplayQRCode()
 if results!=False:
@@ -65,4 +85,10 @@ if results['post']!=1:
 	ERR("Badge reports failed POST!")
 	appexit(results.FAIL_TEST)
 
+if selftest['IIC']:
+	print("IIC OK")
+else:
+	ERR("IIC Fail, We are missing devices. %s"%selftest['IIC'])
+	appexit(results.FAIL_TEST)
+OK("Badge Passed!")
 appexit(results.PASS)
